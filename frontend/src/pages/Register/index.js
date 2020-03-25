@@ -1,24 +1,28 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link, useHistory } from 'react-router-dom'
+import { Input } from '@rocketseat/unform';
 import { FiArrowLeft} from 'react-icons/fi';
-import { Container, Form, Section } from './styles';
+import { toast } from 'react-toastify';
+import * as Yup from 'yup';
+
+import { Container, RegisterForm, Section } from './styles';
 
 import api from '../../services/api';
 
 import logoImg from '../../assets/logo.svg';
 
-export default function Register() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [whatsapp, setWhatsapp] = useState('');
-  const [city, setCity] = useState('');
-  const [uf, setUf] = useState('');
+const schema = Yup.object().shape({
+  name: Yup.string().required('O nome é obrigatório'),
+  email: Yup.string().email('Insira um e-mail válido').required('O e-mail é obrigatório'),
+  whatsapp: Yup.string().required('O whatsapp é obrigatório'),
+  city: Yup.string().required('O nome da cidade é obrigatório'),
+  uf: Yup.string(2, 'Apenas dois caracteres').required('A sigla do estado é obrigatório'),
+})
 
+export default function Register() {
   const history = useHistory();
 
-  async function handleRegister(e) {
-    e.preventDefault();
-
+  async function handleRegister({name, email, whatsapp, city, uf}) {
     const data = {
       name,
       email,
@@ -30,12 +34,13 @@ export default function Register() {
     try {
 
     const response = await api.post('ongs', data);
-
+    
+    toast.success('Cadastrado com sucesso')
     alert(`Seu ID de acesso ${response.data.id}`);
 
     history.push('/');
     } catch(err) {
-      alert('Erro no cadastro tente novamente')
+      toast.error('Erro no cadastro tente novamente')
     }
   }
 
@@ -49,43 +54,38 @@ export default function Register() {
 
           <Link className="back-link" to="/">
             <FiArrowLeft size={16} color="#e02041" />
-            Não tenho cadastro
+            Voltar para o logon
           </Link>
         </Section>
 
-        <Form onSubmit={handleRegister}>
-          <input
+        <RegisterForm schema={schema} onSubmit={handleRegister}>
+          <Input
             placeholder="Nome da ONG"
-            value={name}
-            onChange={e => setName(e.target.value)}
+            name="name"
            />
-          <input
+          <Input
             type="email"
+            name="email"
             placeholder="E-mail"
-            value={email}
-            onChange={e => setEmail(e.target.value)}
           />
-          <input
+          <Input
             placeholder="WhatsApp"
-            value={whatsapp}
-            onChange={e => setWhatsapp(e.target.value)}
+            name="whatsapp"
           />
           <div>
-            <input
-              placeholder="Cidade"
-              value={city}
-              onChange={e => setCity(e.target.value)}  
-            />
-            <input
-              placeholder="UF"
-              style={{ width: 80 }}
-              value={uf}
-              onChange={e => setUf(e.target.value)}
-            />
+              <Input
+                placeholder="Cidade"
+                name="city" 
+              />
+              <Input
+                placeholder="UF"
+                name="uf"
+                style={{ width: 80 }}
+              />
           </div>
 
           <button className="button" type="submit">Cadastrar</button>
-        </Form>
+        </RegisterForm>
       </div>
     </Container>
   );

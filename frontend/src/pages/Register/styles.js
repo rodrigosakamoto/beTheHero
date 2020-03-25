@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Form } from '@rocketseat/unform';
 
 export const Container = styled.div`
   width: 100%;
@@ -39,9 +40,16 @@ export const Section = styled.section`
   }
 `;
 
-export const Form = styled.form`
+export const RegisterForm = styled(Form)`
   width: 100%;
   max-width: 450px;
+
+  span {
+      color: #fb6f91;
+      align-self: flex-start;
+      margin: 10px;
+      font-weight: bold;
+    }
 
   input {
     margin-top: 8px;
@@ -49,9 +57,10 @@ export const Form = styled.form`
 
   div {
     display: flex;
-
+     
     input + input {
       margin-left: 8px;
     }
+
   }
 `;

@@ -1,24 +1,28 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link, useHistory } from 'react-router-dom'
 import { FiArrowLeft} from 'react-icons/fi';
-import { Container, Form, Section } from './styles';
+import { toast } from 'react-toastify';
+import { Input, Textarea } from '@rocketseat/unform';
+import * as Yup from 'yup';
+
+import { Container, IncidentForm, Section } from './styles';
 
 import api from '../../services/api';
 
 import logoImg from '../../assets/logo.svg';
 
-export default function NewIncident() {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [value, setValue] = useState('');
+const schema = Yup.object().shape({
+  title: Yup.string().required('O título do caso é obrigatório'),
+  description: Yup.string().required('A descrição é obrigatória'),
+  value: Yup.string('Apenas números').required('O valor é obrigatório'),
+})
 
+export default function NewIncident() {
   const history = useHistory();
 
   const ongId = localStorage.getItem('ongId');
 
-  async function handleNewIncident(e) {
-    e.preventDefault();
-
+  async function handleNewIncident({ title, description, value}) {
     const data = {
       title,
       description,
@@ -31,9 +35,10 @@ export default function NewIncident() {
           Authorization: ongId,
         }
       })
+      toast.success('Novo caso cadastrado com sucesso');
       history.push('/profile');
     } catch (err) {
-      alert('Erro ao cadastrar caso, tente novamente');
+      toast.error('Erro ao cadastrar caso, tente novamente');
     }
   }
 
@@ -51,24 +56,21 @@ export default function NewIncident() {
         </Link>
       </Section>
 
-      <Form onSubmit={handleNewIncident}>
-        <input 
+      <IncidentForm schema={schema} onSubmit={handleNewIncident}>
+        <Input 
           placeholder="Título do caso"
-          value={title}
-          onChange={e => setTitle(e.target.value)}  
+          name="title"
         />
-        <textarea 
+        <Textarea 
           placeholder="Descrição"
-          value={description}
-          onChange={e => setDescription(e.target.value)}  
+          name="description"
         />
-        <input 
+        <Input 
           placeholder="Valor em reais"
-          value={value}
-          onChange={e => setValue(e.target.value)}  
+          name="value"  
         />
         <button className="button" type="submit">Cadastrar</button>
-      </Form>
+      </IncidentForm>
     </div>
   </Container>
   );
