@@ -29,7 +29,6 @@ export const Container = styled.div`
         top: 24px;
         border: 0;
         background: none;
-        
 
         &:hover {
           opacity: 0.8;
@@ -41,7 +40,7 @@ export const Container = styled.div`
         margin-bottom: 16px;
         color: #41414d;
       }
-      
+
       p + strong {
         margin-top: 32px;
       }
@@ -70,7 +69,7 @@ export const Header = styled.header`
   a {
     width: 260px;
     margin-left: auto;
-    margin-top: 0
+    margin-top: 0;
   }
 
   button {

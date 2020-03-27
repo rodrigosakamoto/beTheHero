@@ -19,7 +19,7 @@ export const Container = styled.div`
 
 export const Form = styled.form`
   margin-top: 100px;
-  
+
   h1 {
     font-size: 32px;
     margin-bottom: 32px;
