@@ -4,31 +4,37 @@ import { Feather } from '@expo/vector-icons';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import * as MailComposer from 'expo-mail-composer';
 
-
 import logoImg from '../../assets/logo.png';
 
 import {
-  Container, 
-  Header, 
+  Container,
+  Header,
   Logo,
-  HeaderButton, 
-  Incident, 
-  IncidentProperty, 
+  HeaderButton,
+  Incident,
+  IncidentProperty,
   IncidentValue,
   ContactBox,
   HeroTitle,
   HeroDescription,
   Actions,
   Action,
-  ActionText
- } from './styles';
+  ActionText,
+} from './styles';
 
 export default function Detail() {
   const route = useRoute();
   const navigation = useNavigation();
 
-  const incident = route.params.incident;
-  const message = `Olá ${incident.name}, estou entrando em contato pois gostaria de ajudar no caso "${incident.title}" com o valor de ${Intl.NumberFormat('pt-BR', {style: 'currency', currency: 'BRL'}).format(incident.value)}`;
+  const { incident } = route.params;
+  const message = `Olá ${
+    incident.name
+  }, estou entrando em contato pois gostaria de ajudar no caso "${
+    incident.title
+  }" com o valor de ${Intl.NumberFormat('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+  }).format(incident.value)}`;
 
   function navigateBack() {
     navigation.goBack();
@@ -39,11 +45,13 @@ export default function Detail() {
       subject: `Herói do caso: ${incident.title}`,
       recipients: [incident.email],
       body: message,
-    })
+    });
   }
 
   function sendWhatsapp() {
-    Linking.openURL(`whatsapp://send?phone=${incident.whatsapp}&text=${message}`);
+    Linking.openURL(
+      `whatsapp://send?phone=${incident.whatsapp}&text=${message}`
+    );
   }
 
   return (
@@ -56,18 +64,23 @@ export default function Detail() {
       </Header>
 
       <Incident>
-        <IncidentProperty style={[{marginTop:  0}]} >ONG: </IncidentProperty>
-        <IncidentValue>{incident.name} de {incident.city}/{incident.uf}</IncidentValue>
+        <IncidentProperty style={[{ marginTop: 0 }]}>ONG: </IncidentProperty>
+        <IncidentValue>
+          {incident.name} de {incident.city}/{incident.uf}
+        </IncidentValue>
 
         <IncidentProperty>CASO: </IncidentProperty>
         <IncidentValue>{incident.title}</IncidentValue>
+
+        <IncidentProperty>DESCRIÇÂO:</IncidentProperty>
+        <IncidentValue>{incident.description}</IncidentValue>
 
         <IncidentProperty>VALOR: </IncidentProperty>
         <IncidentValue>
           {Intl.NumberFormat('pt-BR', {
             style: 'currency',
-            currency: 'BRL'
-            }).format(incident.value)}
+            currency: 'BRL',
+          }).format(incident.value)}
         </IncidentValue>
       </Incident>
 
@@ -85,10 +98,8 @@ export default function Detail() {
           <Action onPress={sendMail}>
             <ActionText>E-mail</ActionText>
           </Action>
-
         </Actions>
       </ContactBox>
-
     </Container>
   );
 }
