@@ -1,20 +1,20 @@
 <h1 align="center">
-  <img src=".github/logo.svg" alt="Logo BeTHeHero"/>
-  <h1>BeTheHero</h1>
+  <img src=".github/logo.svg" alt="Logo BeTHeHero" width="200px"/>
 </h1>
 
-## 💻 WEB
+<h3>beTheHero - Aplicação desenvolvida para ajudar as ONGs na divulgação de seus casos.</h3>
 
-<h2>
-  <img src=".github/web.png"/>
-</h2>
 
-## 📱 Mobile
+<p align="center">
+<img src=".github/incidents.png" border="0" height="300" style="margin-right: 10px"/>
+<img src=".github/details.png" border="0" height="300"/>
+</p>
 
-<h2>
-<img src=".github/incidents.png" width="300px"/>
-<img src=".github/details.png" width="300px"/>
-</h2>
+
+<p align="center">
+  <img src=".github/home.png" border="0" height="300" />
+</p>
+
 
 ## 🚀 Tecnologias
 
@@ -44,3 +44,56 @@ Mobile:
 - [React Navigation](https://reactnavigation.org/)
 - [Styled Components](https://styled-components.com/)
 - [Axios](https://github.com/axios/axios)
+
+## 💾 Instalação
+
+<h3> Instalação - Backend</h3>
+
+<h4>2. Execute os comandos abaixo</h4>
+
+```bash
+# Clone o repositório
+$ https://github.com/rodrigosakamoto/beTheHero.git
+
+# Em seguida execute:
+
+$ cd beTheHero
+$ cd backend
+
+$ yarn
+
+$ yarn dev
+```
+
+<h3> Instalação - Frontend 💻 </h3>
+
+<h4>Execute os comandos abaixo</h4>
+
+```bash
+$ cd beTheHero
+$ cd frontend
+
+# Em seguida execute:
+
+$ yarn
+
+$ yarn start
+```
+
+
+<h3> Instalação - Mobile 📱(Expo) </h3>
+
+<h4>Execute os comandos abaixo</h4>
+
+```bash
+$ cd beTheHero
+$ cd mobile
+
+# Em seguida execute:
+
+$ yarn
+
+$ yarn start
+```
+---
+By [Rodrigo Sakamoto](https://www.linkedin.com/in/rodrigo-sakamoto/)
